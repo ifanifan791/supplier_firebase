@@ -25,7 +25,8 @@ class _SupplierDetailPageState extends State<SupplierDetailPage> {
   Future<void> _openGoogleMaps(double latitude, double longitude) async {
     final String mapsUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (!await launchUrl(Uri.parse(mapsUrl), mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(mapsUrl),
+        mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $mapsUrl';
     }
   }
@@ -34,7 +35,46 @@ class _SupplierDetailPageState extends State<SupplierDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Supplier Details'),
+        title:
+            Text('Detail Supplier', style: TextStyle(fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () async {
+              // Tampilkan dialog konfirmasi
+              bool? confirmDelete = await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Konfirmasi Hapus'),
+                    content:
+                        Text('Apakah Anda yakin ingin menghapus supplier ini?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Batal'),
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Hapus'),
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              // Jika pengguna mengkonfirmasi, lakukan penghapusan
+              if (confirmDelete == true) {
+                await FirebaseHelper().deleteSupplier(widget.supplierId.toString());
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<Supplier?>(
         future: _supplier,
@@ -53,27 +93,28 @@ class _SupplierDetailPageState extends State<SupplierDetailPage> {
 
           // Apply padding here
           return Padding(
-            padding: const EdgeInsets.all(16.0),  
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Supplier Name: ${item.name}',  
+                  'Supplier Name: ${item.name}',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Address: ${item.address}',  
+                  'Address: ${item.address}',
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Contact: ${item.contact}',  // Display supplier's phone number
+                  'Contact: ${item.contact}', // Display supplier's phone number
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 10),
                 TextButton(
-                  onPressed: () => _openGoogleMaps(item.latitude, item.longitude),
+                  onPressed: () =>
+                      _openGoogleMaps(item.latitude, item.longitude),
                   child: Text('Open in Maps'),
                 ),
               ],

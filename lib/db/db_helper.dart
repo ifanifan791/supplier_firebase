@@ -81,6 +81,15 @@ class FirebaseHelper {
     }
   }
 
+    // Delete supplier by ID
+  Future<void> deleteSupplier(String id) async {
+    try {
+      await suppliersCollection.doc(id).delete();
+    } catch (e) {
+      throw Exception("Failed to delete item: $e");
+    }
+  }
+
   // Add category
   Future<void> addCategory(Category category) async {
     try {

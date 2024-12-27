@@ -31,6 +31,44 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       appBar: AppBar(
         title:
             Text('Detail Item', style: TextStyle(fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () async {
+              // Tampilkan dialog konfirmasi
+              bool? confirmDelete = await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Konfirmasi Hapus'),
+                    content:
+                        Text('Apakah Anda yakin ingin menghapus item ini?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Batal'),
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Hapus'),
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              // Jika pengguna mengkonfirmasi, lakukan penghapusan
+              if (confirmDelete == true) {
+                await FirebaseHelper().deleteItem(widget.itemId.toString());
+                Navigator.of(context).pop(); 
+              }
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<Barang?>(
         future: _item,
@@ -87,19 +125,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                         Divider(),
                         Row(
                           children: [
-                            Text('Kategori: ',
-                                style: TextStyle(fontSize: 16)),
+                            Text('Kategori: ', style: TextStyle(fontSize: 16)),
                             Text('${item.category}',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         Divider(),
-                                                Row(
+                        Row(
                           children: [
                             Text('Harga: ', style: TextStyle(fontSize: 16)),
                             Text('Rp. ${item.price}',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         Divider(),
@@ -221,8 +259,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 ),
                 SizedBox(height: 10),
                 FutureBuilder<List<HistoryStok>>(
-                  future: FirebaseHelper()
-                      .getHistoryStokByItemId(widget.itemId),
+                  future:
+                      FirebaseHelper().getHistoryStokByItemId(widget.itemId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
