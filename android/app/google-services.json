@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344033296126",
+    "project_id": "supplier-barang",
+    "storage_bucket": "supplier-barang.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344033296126:android:e0205b76db4e0f6cc96faf",
+        "android_client_info": {
+          "package_name": "com.example.suplier_api"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfluMzkKUbeWHw-dzBdLELQCAVR31hm_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
