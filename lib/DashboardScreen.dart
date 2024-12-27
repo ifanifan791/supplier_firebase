@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Digunakan untuk mengelola sesi pengguna
-import 'login/login_page.dart'; // Pastikan Anda memiliki file ini untuk layar login
+import 'package:shared_preferences/shared_preferences.dart'; 
+import 'login/login_page.dart'; 
 import 'barang/dashboard_screen.dart';
 import 'supplier/SupplierListScreen.dart';
 
 class DashboardScreen extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
-    // Bersihkan sesi pengguna (misalnya, dengan SharedPreferences)
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
 
@@ -62,10 +61,8 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Total Barang (Total Items) Section
             GestureDetector(
               onTap: () {
-                // Navigate to Inventory List
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemListPage()),
@@ -73,17 +70,15 @@ class DashboardScreen extends StatelessWidget {
               },
               child: _buildCard(
                 'Total Barang',
-                Icons.inventory, // Ikon untuk barang
+                Icons.inventory, 
                 'Items Available',
               ),
             ),
 
             SizedBox(height: 20.0),
 
-            // Jumlah Supplier (Number of Suppliers) Section
             GestureDetector(
               onTap: () {
-                // Navigate to Supplier List
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SupplierListScreen()),
@@ -91,7 +86,7 @@ class DashboardScreen extends StatelessWidget {
               },
               child: _buildCard(
                 'Jumlah Supplier',
-                Icons.people, // Ikon untuk supplier
+                Icons.people, 
                 'Suppliers Registered',
               ),
             ),
@@ -101,7 +96,6 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Helper method to build the card view
   Widget _buildCard(String title, IconData icon, String subtitle) {
     return Card(
       elevation: 5.0,
@@ -113,14 +107,12 @@ class DashboardScreen extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: <Widget>[
-            // Ikon di sisi kiri
             Icon(
               icon,
               size: 50.0,
               color: Colors.blueAccent,
             ),
             SizedBox(width: 20.0),
-            // Teks di sisi kanan
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,  // Use backgroundColor instead of primary
+                  backgroundColor: Colors.blueAccent,  
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),

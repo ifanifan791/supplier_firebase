@@ -11,7 +11,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
-  String confirmPassword = ''; // New variable for confirmation password
+  String confirmPassword = ''; 
   bool showSpinner = false;
 
   @override
@@ -109,7 +109,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent, // Use 'backgroundColor' instead of 'primary'
+                  backgroundColor: Colors.blueAccent, 
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),

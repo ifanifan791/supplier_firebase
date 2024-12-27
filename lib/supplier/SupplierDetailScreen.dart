@@ -53,17 +53,17 @@ class _SupplierDetailPageState extends State<SupplierDetailPage> {
 
           // Apply padding here
           return Padding(
-            padding: const EdgeInsets.all(16.0),  // Add padding
+            padding: const EdgeInsets.all(16.0),  
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Supplier Name: ${item.name}',  // Display supplier's name
+                  'Supplier Name: ${item.name}',  
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Address: ${item.address}',  // Display supplier's address
+                  'Address: ${item.address}',  
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 10),
