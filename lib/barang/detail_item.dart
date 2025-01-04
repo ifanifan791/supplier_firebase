@@ -3,6 +3,7 @@ import 'package:suplier_api/model/barang.dart';
 import 'package:suplier_api/db/db_helper.dart';
 import 'dart:io';
 import 'package:suplier_api/model/history_stok.dart';
+import 'package:suplier_api/barang/update_item.dart';
 
 class ItemDetailPage extends StatefulWidget {
   final int itemId;
@@ -64,8 +65,18 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
               // Jika pengguna mengkonfirmasi, lakukan penghapusan
               if (confirmDelete == true) {
                 await FirebaseHelper().deleteItem(widget.itemId.toString());
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => UpdateItemPage(itemId: widget.itemId),
+                ),
+              );
             },
           ),
         ],

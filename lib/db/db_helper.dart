@@ -81,7 +81,16 @@ class FirebaseHelper {
     }
   }
 
-    // Delete supplier by ID
+  // Update item in Firestore
+  Future<void> updateItem(Barang item) async {
+    try {
+      await itemsCollection.doc(item.id.toString()).update(item.toMap());
+    } catch (e) {
+      throw Exception("Failed to update item: $e");
+    }
+  }
+
+  // Delete supplier by ID
   Future<void> deleteSupplier(String id) async {
     try {
       await suppliersCollection.doc(id).delete();
@@ -178,7 +187,9 @@ class FirebaseHelper {
   // Add item to Firestore
   Future<void> addSuppliers(Supplier supplier) async {
     try {
-      await suppliersCollection.doc(supplier.id.toString()).set(supplier.toMap());
+      await suppliersCollection
+          .doc(supplier.id.toString())
+          .set(supplier.toMap());
     } catch (e) {
       throw Exception("Failed to add item: $e");
     }
